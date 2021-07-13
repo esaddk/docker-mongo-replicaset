@@ -1,0 +1,51 @@
+# Docker Compose Version
+version: '3'
+
+# Service Conf
+services:
+  node1:
+    image: mongo
+    ports:
+      - 70001:27017
+    volumes:
+      - $HOME/mongoclusterdata/node1:/data/mongodb
+    networks:
+      - mongo-network
+    command: mongod --replSet rs-lab-01
+  node2:
+    image: mongo
+    ports:
+      - 70002:27017
+    volumes:
+      - $HOME/mongoclusterdata/node2:/data/mongodb
+    networks:
+      - mongo-network
+    command: mongod --replSet rs-lab-01
+    depends_on:
+      - node1 
+  node3:
+    image: mongo
+    ports:
+      - 70003:27017
+    volumes:
+      - $HOME/mongoclusterdata/node3:/data/mongodb
+    networks:
+      - mongo-network
+    command: mongod --replSet rs-lab-01
+    depends_on:
+      - node2
+  setup-rs:
+    image: "setup-rs"
+    networks:
+      - mongo-network
+    build: ./setup
+    depends_on:
+      - node1
+
+# Network Conf
+networks:
+  mongo-network:
+    driver: bridge
+
+
+  
