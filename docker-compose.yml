@@ -6,7 +6,7 @@ services:
   node1:
     image: mongo
     ports:
-      - 70001:27017
+      - 3001:27017
     volumes:
       - $HOME/mongoclusterdata/node1:/data/mongodb
     networks:
@@ -15,7 +15,7 @@ services:
   node2:
     image: mongo
     ports:
-      - 70002:27017
+      - 3002:27017
     volumes:
       - $HOME/mongoclusterdata/node2:/data/mongodb
     networks:
@@ -26,7 +26,7 @@ services:
   node3:
     image: mongo
     ports:
-      - 70003:27017
+      - 3003:27017
     volumes:
       - $HOME/mongoclusterdata/node3:/data/mongodb
     networks:
